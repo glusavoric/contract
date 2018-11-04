@@ -112,6 +112,9 @@ contract StakeableToken is UTXORedeemableToken {
 
     /* Make sure staker has enough funds */
     require(balanceOf(msg.sender) >= _satoshis);
+
+    /* Make sure stake is a non-zero amount */
+    require(_satoshis > 0);
     
     /* ensure that unlock time is not more than approx 10 years */
     require(_unlockTime <= block.timestamp.add(maxStakingTime));

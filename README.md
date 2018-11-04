@@ -13,7 +13,7 @@ This file is **NOT** checked in. You will need to supply a secrets.js that inclu
 Sample format:
 ```
 const infuraKey = 'get-this-from-infura-io'
-const accountPK = 'your-64-character-private-hex-key-goes-here-do-not-share-with-others'
+const accountPK = 'your-64-character-private-hex-key-goes-here-do-not-share-with-others' // No leading 0x
 const mainnetPK = accountPK
 const ropstenPK = accountPK
 
