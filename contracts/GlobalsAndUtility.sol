@@ -92,13 +92,11 @@ contract GlobalsAndUtility is ERC20 {
     address _staker,
     uint256 _stakeIndex
   ) internal {
-    StakeStruct[] storage _stakedArray = staked[_staker];
-    
-    /* set last item to index of item we want to get rid of */
-    _stakedArray[_stakeIndex] = _stakedArray[_stakedArray.length.sub(1)];
+    /* Set last item to index of item we want to get rid of */
+    staked[_staker][_stakeIndex] = staked[_staker][staked[_staker].length.sub(1)];
 
     /* Remove last item in array now that safely copied to index of deleted item */
-    _stakedArray.length = _stakedArray.length.sub(1);
+    staked[_staker].length = staked[_staker].length.sub(1);
   }
 
   /**
