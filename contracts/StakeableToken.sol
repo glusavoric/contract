@@ -172,7 +172,7 @@ contract StakeableToken is UTXORedeemableToken {
       _stake.amount,
       _stake.stakeTime,
       _stake.unlockTime
-    ));
+    )).add(_stake.amount);
 
     /* Early Unstake Penalty */
     if (block.timestamp > _stake.unlockTime) {
