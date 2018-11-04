@@ -46,7 +46,7 @@ contract GlobalsAndUtility is ERC20 {
   /* Period data */
   struct PeriodDataStuct {
     uint256 payoutRoundAmount;
-    uint256 totalStaked;
+    uint256 totalStakeShares;
   }
   mapping(uint256 => PeriodDataStuct) internal periodData;
 
@@ -79,6 +79,26 @@ contract GlobalsAndUtility is ERC20 {
       _maxOfTotalSupplyVSMaxRedeemable = maximumRedeemable;
     }
     return _maxOfTotalSupplyVSMaxRedeemable;
+  }
+
+  /** 
+    @dev Moves last item in array to location of item to be removed,
+    overwriting array item. Shortens array length by 1, removing now
+    duplicate item at end of array.
+    @param _staker staker address for accessing array
+    @param _stakeIndex index of the item to delete
+  */
+  function removeStake(
+    address _staker,
+    uint256 _stakeIndex
+  ) internal {
+    StakeStruct[] storage _stakedArray = staked[_staker];
+    
+    /* set last item to index of item we want to get rid of */
+    _stakedArray[_stakeIndex] = _stakedArray[_stakedArray.length.sub(1)];
+
+    /* Remove last item in array now that safely copied to index of deleted item */
+    _stakedArray.length = _stakedArray.length.sub(1);
   }
 
   /**

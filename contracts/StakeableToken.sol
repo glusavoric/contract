@@ -88,8 +88,11 @@ contract StakeableToken is UTXORedeemableToken {
 
     /* Loop though each period and tally payout */
     for (uint256 _i = _startPeriod; _i < _endPeriod; _i++) {
+      /* If totalStakeShares is 0, set to 1, so div(0) doesn't occur */
+      uint256 _totalStakeShares = periodData[_i].totalStakeShares == 0 ? 1 : periodData[_i].totalStakeShares;
+
       /* Calculate payout from period */
-      uint256 _periodPayout = periodData[_i].payoutRoundAmount.mul(_stakeShares).div(periodData[_i].totalStaked);
+      uint256 _periodPayout = periodData[_i].payoutRoundAmount.mul(_stakeShares).div(_totalStakeShares);
 
       /* Add to tally */
       _payout = _payout.add(_periodPayout);
@@ -222,5 +225,8 @@ contract StakeableToken is UTXORedeemableToken {
 
     /* Payout */
     _mint(msg.sender, _stake.amount.add(_payout));
+
+    /* Remove stake */
+    removeStake(msg.sender, _stakeIndex);
   }
 }
