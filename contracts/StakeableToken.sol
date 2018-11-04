@@ -215,6 +215,11 @@ contract StakeableToken is UTXORedeemableToken {
         ));
       }
 
+      /* No negative balances */
+      if (_penalty > _payout) {
+        _penalty = _payout;
+      }
+
       /* Split penalty 50/50 with origin and emergencyUnstakePool */
       emergencyUnstakePool = emergencyUnstakePool.add(_penalty.div(2));
       _mint(origin, _penalty.div(2));
