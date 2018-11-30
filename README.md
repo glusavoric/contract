@@ -1,4 +1,4 @@
-# BitcoinHex
+# BitcoinHex Classic SV
 
 ## Contracts
 Please see the [contracts/](contracts) directory.
